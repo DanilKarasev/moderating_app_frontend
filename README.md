@@ -1,5 +1,5 @@
 # Moderating ads application
-Presented app is an interface of moderating ads created by users. Ads being loaded by 10 pcs. To load a new list of ads, you have to make a decision of all 10's.
+Presented app is an interface of moderating ads created by users. Ads being loaded by 10 pcs. To load a new list of ads, you have to make a decision of all 10's. It is a frontend part. Backend located here `https://moderating-app-backend.herokuapp.com/`
 
 # Technical requirements
 - Avoid react - redux
