@@ -9,6 +9,7 @@ import { ModalComponent } from "../../components/Modal";
 import { ToastContainer as Notification, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const SERVER = "https://moderating-app-backend.herokuapp.com"
 //Task was to avoid using react-redux, so I tried useReducer
 const initialState = {
   loading: false,
@@ -102,7 +103,7 @@ export const Main = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const getAds = async (page = 1) => {
     const adsPerPage = 10;
-    const response = await fetch(`/get_data?page=${page}&limit=${adsPerPage}`);
+    const response = await fetch(`${SERVER}/get_data?page=${page}&limit=${adsPerPage}`);
     const body = await response.json();
     if (response.status !== 200) {
       throw Error(body.message);
@@ -111,7 +112,7 @@ export const Main = () => {
   };
 
   const sendAds = async (data) => {
-    let response = await fetch("/send_data", {
+    let response = await fetch(`${SERVER}/send_data`, {
       method: "POST",
       headers: {
         "Content-Type": "application/JSON",
@@ -125,7 +126,7 @@ export const Main = () => {
 
   //Clear completed ads
   const clearAds = async () => {
-    let response = await fetch("/clear_data", {
+    let response = await fetch(`${SERVER}/clear_data`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/JSON",
@@ -325,18 +326,21 @@ export const Main = () => {
             color={"#88BD35"}
             hotKey={"Space"}
             state={state}
+            disabled={state.adsList.length === 0}
           />
           <ControlButton
             command={handleOpenDeclineModal}
             commandText={"Decline"}
             color={"#F7882E"}
             hotKey={"Del"}
+            disabled={state.adsList.length === 0}
           />
           <ControlButton
             command={handleOpenEscalateModal}
             commandText={"Escalate"}
             color={"#1764CC"}
             hotKey={"Shift+Enter"}
+            disabled={state.adsList.length === 0}
           />
           <ControlButton
             command={sendData}
